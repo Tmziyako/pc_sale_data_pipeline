@@ -1,0 +1,36 @@
+create view pc_data_continent_africa
+as
+
+SELECT [Continent]
+      ,[Country_or_State]
+      ,[Province_or_City]
+      ,[Shop_Name]
+      ,[Shop_Age]
+      ,[PC_Make]
+      ,[PC_Model]
+      ,[Storage_Type]
+      ,[RAM]
+      ,[Storage_Capacity]
+      ,[Customer_Name]
+      ,[Customer_Surname]
+      ,[Customer_Contact_Number]
+      ,[Customer_Email_Address]
+      ,[Sales_Person_Name]
+      ,[Sales_Person_Department]
+      ,[Payment_Method]
+      ,[Purchase_Date]
+      ,[Ship_Date]
+      ,[Channel]
+      ,[Priority]
+      ,[Cost_of_Repairs]
+      ,[Total_Sales_per_Employee]
+      ,[PC_Market_Price]
+      ,[Finance_Amount]
+      ,[Credit_Score]
+      ,[Discount_Amount]
+      ,[Cost_Price]
+      ,[Sale_Price]
+  FROM [pc_sale_datapipeline].[dbo].[raw_pc_data] where continent= 'Africa'
+
+  --stored procedure-
+  --view- views the filtered  data--
