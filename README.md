@@ -7,10 +7,7 @@ This project demonstrates an end-to-end **data pipeline** designed to process PC
 
 # 🏗️ Architecture
 The pipeline follows a layered architecture:
--#**Raw Layer:** Source CSV files 
--#**Data Modelling:** Cleans and transforms data through star schema 
--#**SQL:** create dim tables, fact tables and stored procedures using the SMSS  
-  
+
 - #**Raw Layer:** Source CSV files  
 - Dimension table creation and surrogate keys  
 - #**Data Modelling:** Cleans and transforms data through star schema 
