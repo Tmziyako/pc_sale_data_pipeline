@@ -5,7 +5,7 @@
 
 This project demonstrates an end-to-end data pipeline built to process PC sales data from raw ingestion through data modeling and transformation. The pipeline extracts raw transactional data, cleans and standardizes it, and loads it into dimension and fact tables within a star schema data warehouse. This structure enables efficient querying and supports business intelligence for advanced analytics and reporting. This version avoids repetition, flows smoothly, and emphasizes both the technical process and the business value through cost savings.
 
-⚠️ **Note:** This project is still ongoing and will continue to evolve with additional features, optimizations, and enhancements.
+⚠️ **Note:** This project is still ongoing and will continue to evolve with additional features, optimizations, and enhancements to fully automated data pipeline.
 
 # 🏗️ Architecture
 The pipeline follows a layered architecture:
