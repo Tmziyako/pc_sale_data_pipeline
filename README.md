@@ -17,9 +17,8 @@ The pipeline follows a layered architecture:
 ## 🔑 Skills Demonstrated
 - SQL Server stored procedures for ETL  
 - Data modeling with star schema design  
-- Dimension table creation and surrogate keys  
-- Data cleaning and transformation (e.g., `TRY_CONVERT`, `DISTINCT`)  
-- Automation of pipeline execution  
+- Dimension table creation   
+- Data cleaning and transformation (e.g., `Constraint`, `DISTINCT` and etc)   
 
 🛠️ Tools & Technologies
 - **Microsoft SQL Server (SSMS)** – database engine and management studio  
