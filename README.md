@@ -14,6 +14,10 @@ The pipeline follows a layered architecture:
 - #**Data Modelling:** Cleans and transforms data through star schema 
 - #**SQL:** create dim tables, fact tables and stored procedures using the SMSS  
 
+## 📊 Star Schema Diagram
+
+![Star Schema](images/star_schema.png)
+
 ## 🔑 Skills Demonstrated
 - SQL Server stored procedures for ETL  
 - Data modeling with star schema design  
