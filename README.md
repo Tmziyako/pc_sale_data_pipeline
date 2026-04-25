@@ -20,3 +20,9 @@ The pipeline follows a layered architecture:
 - Dimension table creation and surrogate keys  
 - Data cleaning and transformation (e.g., `TRY_CONVERT`, `DISTINCT`)  
 - Automation of pipeline execution  
+
+🛠️ Tools & Technologies
+- **Microsoft SQL Server (SSMS)** – database engine and management studio  
+- **SQL** – for stored procedures, ETL logic, and transformations  
+- **Data Warehouse Concepts** – star schema, fact/dimension modeling    
+- **Version Control (GitHub)** – tracking project progress and changes
