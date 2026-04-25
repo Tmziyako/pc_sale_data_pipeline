@@ -16,7 +16,7 @@ The pipeline follows a layered architecture:
 
 ## 📊 Star Schema Diagram
 
-![Star Schema](images/star_schema.png)
+![Star Schema](pc_sale_star_schema.png)
 
 ## 🔑 Skills Demonstrated
 - SQL Server stored procedures for ETL  
