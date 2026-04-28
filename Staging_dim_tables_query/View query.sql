@@ -31,6 +31,3 @@ SELECT [Continent]
       ,[Cost_Price]
       ,[Sale_Price]
   FROM [pc_sale_datapipeline].[dbo].[raw_pc_data] where continent= 'Africa'
-
-  --stored procedure-
-  --view- views the filtered  data--

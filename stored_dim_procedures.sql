@@ -1,23 +1,26 @@
-
-
+--Channeling it to use the below specific database--
+USE [pc_sale_datapipeline];
+GO
+--A stored procedure is essentially a saved block of SQL code that you can run whenever you need. 
+--Instead of rewriting the same SQL statements over and over, you package them into one reusable procedure.
+--sp dim location--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_location;
 GO
 CREATE PROCEDURE sp_create_dim_location
 AS
 BEGIN
         DROP TABLE [pc_sale_datapipeline].[dbo].[dim_location];
-    CREATE TABLE [pc_sale_datapipeline].[dbo].[dim_location] (
+        CREATE TABLE [pc_sale_datapipeline].[dbo].[dim_location] (
         locationID INT IDENTITY (1,1) PRIMARY KEY,
         Continent NVARCHAR(250) NOT NULL,
         Country_or_State NVARCHAR(250) NOT NULL,
-        Province_or_City NVARCHAR(250) NOT NULL
-    )
+        Province_or_City NVARCHAR(250) NOT NULL)
     INSERT INTO [pc_sale_datapipeline].[dbo].[dim_location] (Continent, Country_or_State, Province_or_City)
     SELECT DISTINCT Continent, Country_or_State, Province_or_City
     FROM [pc_sale_datapipeline].[dbo].[raw_pc_data];
 END;
 
-
+--sp dim date--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_date;
 GO
 CREATE PROCEDURE sp_create_dim_date
@@ -36,8 +39,7 @@ SELECT Distinct
  FROM [pc_sale_datapipeline].[dbo].[raw_pc_data];
  End;
  
-
-
+ --sp dim customer--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_customer;
 GO
 CREATE PROCEDURE sp_create_dim_customer
@@ -54,7 +56,7 @@ Drop table [pc_sale_datapipeline].[dbo].[dim_customer]
        select Distinct Customer_Name,Customer_Surname,Customer_Contact_Number,Customer_Email_Address
        from [pc_sale_datapipeline].[dbo].[raw_pc_data]
        End;
-      
+   --sp dim employee--   
 
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_employee;
 GO
@@ -71,13 +73,13 @@ BEGIN
        from [pc_sale_datapipeline].[dbo].[raw_pc_data]
        End;
       
-
+-- sp dim product--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_product;
 GO
 CREATE PROCEDURE sp_create_dim_product
 AS
 BEGIN
-       Drop table [pc_sale_datapipeline].[dbo].[dim_product]
+        Drop table [pc_sale_datapipeline].[dbo].[dim_product]
        Create Table [pc_sale_datapipeline].[dbo].[dim_product] (
        [ProductID] INT IDENTITY (1,1) Primary Key,
        [PC_Make] [nvarchar](250) not null,
@@ -85,12 +87,13 @@ BEGIN
        [Storage_Type] [nvarchar](250) not null,
        [RAM] [nvarchar](250) not null,
        [Storage_Capacity] [nvarchar](250) not null)
+
        Insert into [pc_sale_datapipeline].[dbo].[dim_product] (PC_Make,PC_Model,Storage_Type,RAM,Storage_Capacity)
        select Distinct PC_Make,PC_Model,Storage_Type,RAM,Storage_Capacity
-       select * from [pc_sale_datapipeline].[dbo].[dim_product]
+       from [pc_sale_datapipeline].[dbo].[raw_pc_data]
    End;
    
-
+--sp dim store--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_store;
 GO
 CREATE PROCEDURE sp_create_dim_store
@@ -106,7 +109,7 @@ BEGIN
        from [pc_sale_datapipeline].[dbo].[raw_pc_data]
        End;
       
-      
+--spdim payment-- 
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_payment;
 GO
 CREATE PROCEDURE sp_create_dim_payment
@@ -121,8 +124,7 @@ BEGIN
        from [pc_sale_datapipeline].[dbo].[raw_pc_data]
        End;
     
-      
-
+--sp dim channel--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_channel;
 GO
 CREATE PROCEDURE sp_create_dim_channel
@@ -137,7 +139,7 @@ Drop table [pc_sale_datapipeline].[dbo].[dim_channel]
        from [pc_sale_datapipeline].[dbo].[raw_pc_data]
        End;
        
-
+--sp dim priority--
 DROP PROCEDURE IF EXISTS dbo.sp_create_dim_priority;
 GO       
 CREATE PROCEDURE sp_create_dim_priority
@@ -151,10 +153,8 @@ BEGIN
        select Distinct Priority
        from [pc_sale_datapipeline].[dbo].[raw_pc_data]
        End;
+--sp all execution--
 
-CREATE PROCEDURE dbo.sp_create_all_dimensions
-AS
-BEGIN
       exec sp_create_dim_payment
       exec sp_create_dim_product
       exec sp_create_dim_store;
@@ -164,8 +164,7 @@ BEGIN
       exec sp_create_dim_date;
       exec sp_create_dim_customer;
       exec sp_create_dim_employee;
-      End;
-      Go
+      
 
 
 
