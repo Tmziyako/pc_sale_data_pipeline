@@ -114,7 +114,4 @@ REFERENCES [pc_sale_datapipeline].[dbo].[dim_location](LocationID);
 --Selecting the Fact tables with data--
  select * from [pc_sale_datapipeline].[dbo].[fact_sales]
 
-    SELECT name, parent_object_id
-FROM sys.foreign_keys
-WHERE parent_object_id = OBJECT_ID('fact_sales');
-
+    
