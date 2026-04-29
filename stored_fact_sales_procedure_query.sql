@@ -1,11 +1,8 @@
---1. Clean up data e.g if existing then delete then recreate--
-IF OBJECT_ID('[pc_sale_datapipeline].[dbo].[fact_sales]', 'U') IS NOT NULL
-    DROP TABLE [pc_sale_datapipeline].[dbo].[fact_sales];
-
--- 2. CREATE Fact TABLE--
--- Fact table is the surrogate key(unique identifier--
---the other IDs are foreign keys that connect to dimensions--
---the ither are measures to be analysed--
+DROP PROCEDURE IF EXISTS dbo.sp_create_fact_sales;
+GO
+CREATE PROCEDURE sp_create_fact_sales
+AS
+BEGIN
 CREATE TABLE [pc_sale_datapipeline].[dbo].[fact_sales] (
     FactID INT IDENTITY(1,1) PRIMARY KEY,
     DateID INT NOT NULL,
@@ -25,13 +22,7 @@ CREATE TABLE [pc_sale_datapipeline].[dbo].[fact_sales] (
     sales_price INT NOT NULL,
     cost_price INT NOT NULL,
     cost_of_repair NVARCHAR(250) NULL);
-    --Close down the craete table at the end with );--
-    --Inserting into the created fact table-- 
-    --Loads data into fact table by joining raw_pc_data with all dimensions tables--
-    --Each join matches descriptive attributes in raw data (like PC_Make, Customer_Name, Payment_Method) to the corresponding dimension table--
-    --The dimension tables return their surrogate keys (DateID, ProductID, etc.), which are stored in the fact table--
-    --The measures (discount_amount, finance_amount, sales_price, etc.) are taken directly from raw data--
-    --The raw data stored dates as text hence we used TRY_Convert(DATE,r.purchase_date,103) converts text to date using the correct format(dd/mm/yyyy)(hence the 103)--
+ 
     INSERT INTO [pc_sale_datapipeline].[dbo].[fact_sales] 
     (DateID, PriorityID, ProductID, CustomerID, EmployeeID, StoreID, PaymentID, ChannelID, LocationID, 
      discount_amount, finance_amount, credit_score, pc_market_price, total_sales_per_employee, sales_price, cost_price, cost_of_repair)
@@ -74,8 +65,8 @@ INNER JOIN [pc_sale_datapipeline].[dbo].[dim_location] l ON r.Continent = l.Cont
 AND r.Country_or_State = l.Country_or_State
 AND r.Province_or_City = l.Province_or_City
 INNER JOIN [pc_sale_datapipeline].[dbo].[dim_store] s ON r.Shop_Name = s.Shop_Name
-AND r.Shop_Age = s.Shop_Age;
---4. Each ALTER TABLE adds a foreign key constraint linking the fact table column to the primary key in its dimension--
+AND r.Shop_Age = s.Shop_Age
+
 ALTER TABLE [pc_sale_datapipeline].[dbo].[fact_sales]
 ADD CONSTRAINT FK_fact_date FOREIGN KEY (DateID)
 REFERENCES [pc_sale_datapipeline].[dbo].[dim_date](DateID);
@@ -110,11 +101,6 @@ REFERENCES [pc_sale_datapipeline].[dbo].[dim_channel](ChannelID);
 
 ALTER TABLE [pc_sale_datapipeline].[dbo].[fact_sales]
 ADD CONSTRAINT FK_fact_location FOREIGN KEY (LocationID)
-REFERENCES [pc_sale_datapipeline].[dbo].[dim_location](LocationID);
---Selecting the Fact tables with data--
- select * from [pc_sale_datapipeline].[dbo].[fact_sales]
-
-    SELECT name, parent_object_id
-FROM sys.foreign_keys
-WHERE parent_object_id = OBJECT_ID('fact_sales');
+REFERENCES [pc_sale_datapipeline].[dbo].[dim_location](LocationID)
+End;
 
