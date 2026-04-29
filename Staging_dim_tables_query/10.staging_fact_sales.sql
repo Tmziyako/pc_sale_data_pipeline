@@ -25,7 +25,7 @@ CREATE TABLE [pc_sale_datapipeline].[dbo].[fact_sales] (
     sales_price INT NOT NULL,
     cost_price INT NOT NULL,
     cost_of_repair NVARCHAR(250) NULL);
-    --Close down the craete table at the end with );--
+    --3. Close down the craete table at the end with );--
     --Inserting into the created fact table-- 
     --Loads data into fact table by joining raw_pc_data with all dimensions tables--
     --Each join matches descriptive attributes in raw data (like PC_Make, Customer_Name, Payment_Method) to the corresponding dimension table--
@@ -75,7 +75,11 @@ AND r.Country_or_State = l.Country_or_State
 AND r.Province_or_City = l.Province_or_City
 INNER JOIN [pc_sale_datapipeline].[dbo].[dim_store] s ON r.Shop_Name = s.Shop_Name
 AND r.Shop_Age = s.Shop_Age;
---4. Each ALTER TABLE adds a foreign key constraint linking the fact table column to the primary key in its dimension--
+-- 4. when we say altar table we command to make changes om the table created already--
+-- Each ALTER TABLE adds a foreign key constraint linking the fact table column to the primary key in its dimension--
+--Constraint apply a rule to this table so certain conditions must always be true--
+--foreign key Ensures values in one table exist in another table, Every ProductID in fact_sales must exist in dim_product--
+--why added the constraint: “These IDs in the fact table must match the IDs in the dimension tables.”--
 ALTER TABLE [pc_sale_datapipeline].[dbo].[fact_sales]
 ADD CONSTRAINT FK_fact_date FOREIGN KEY (DateID)
 REFERENCES [pc_sale_datapipeline].[dbo].[dim_date](DateID);
